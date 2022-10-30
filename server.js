@@ -4,8 +4,9 @@ const fs = require('fs');
 const notes = require('./db/db.json');
 // Helper method for generating uniqe ids
 const createID = require('./helpers/createID');
+// const { response } = require('express');
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
@@ -33,10 +34,10 @@ app.get('/api/notes', (req, res) => {
     return res.status(200).json(notes);
 });
 
-
+// POST request to add new note to the database
 app.post('/api/notes', (req, res) => {
     // Log the request to the terminal
-    console.info(`${req.method} request method received to add a notes`);
+    console.info(`${req.method} request method received to add a note`);
 
     // Destructuring assignment for the items in req.body
     const { title, text } = req.body;
@@ -88,15 +89,16 @@ app.post('/api/notes', (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
-
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
+
+
+
+
+
+
+
+
+
+
