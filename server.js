@@ -47,8 +47,10 @@ app.post('/api/notes', (req, res) => {
 
     notes.push(newNote);
 
+    test = notes;
+
     // var newData = JSON.stringify(myObject);
-    fs.writeFile('./db/db.json', JSON.stringify(notes), (err) => {
+    fs.writeFile('./db/db.json', JSON.stringify({ notes: test }, null, 3), (err) => {
         err ? console.error('Error detected') : console.log('Success');
     })
 
