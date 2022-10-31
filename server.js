@@ -34,82 +34,84 @@ app.get('/api/notes', (req, res) => {
     res.status(200).json(notes);
 });
 
+
+
+// POST request to add new note to the database
 app.post('/api/notes', (req, res) => {
-    const {title,text} = req.body;
+    // Log the request to the terminal
+    console.info(`${req.method} request method received to add a note`);
 
-    const id = createID();
+    // Destructuring assignment for the items in req.body
+    const { title, text } = req.body;
 
-    const newNote = {title, text, id};
+    if (title && text) {
+        // Variable for the object we will save for the new note
+        const newNote = {
+            title,
+            text,
+            id: createID(),
+        };
 
-    // var data = fs.readFileSync('./db/db.json');
+        // Adding a new note to the "notes" array in the db
+        notes.push(newNote);
 
-    // var myObject = JSON.parse(data);
+        // Write updated notes back to the db
+        fs.writeFile('./db/db.json', JSON.stringify({ notes: notes }, null, 3), (err) => {
+            err ? console.error('Error in adding note') : console.log('Note successfully added');
+        });
 
-    notes.push(newNote);
+        const response = {
+            status: 'success',
+            body: newNote,
+        };
 
-    test = notes;
+        console.log(response);
+        res.status(201).json(response);
 
-    // var newData = JSON.stringify(myObject);
-    fs.writeFile('./db/db.json', JSON.stringify({ notes: test }, null, 3), (err) => {
-        err ? console.error('Error detected') : console.log('Success');
-    })
-
-res.json("Success");
-})
-
-
-
-
-
-
-
+    } else {
+        res.status(500).json('Error in adding note');
+    }
+});
 
 
 
 
 
-// // POST request to add new note to the database
 // app.post('/api/notes', (req, res) => {
-//     // Log the request to the terminal
-//     console.info(`${req.method} request method received to add a note`);
+//     const {title,text} = req.body;
 
-//     // Destructuring assignment for the items in req.body
-//     const { title, text } = req.body;
+//     const id = createID();
 
-//     if (title && text) {
-//         // Variable for the object we will save for the new note
-//         const newNote = {
-//             title,
-//             text,
-//             id: createID(),
-//         };
+//     const newNote = {title, text, id};
 
-//         var data = fs.readFileSync('./db/db.json');
-//         // Converts string to JSON object
-//         var parsedNotes = JSON.parse(data);
+//     // var data = fs.readFileSync('./db/db.json');
 
-//         // Add a new note
-//         parsedNotes.push(newNote);
+//     // var myObject = JSON.parse(data);
 
-//         var stringNotes = JSON.stringify(parsedNotes);
+//     notes.push(newNote);
 
-//         // Write updated notes back to the file
-//         fs.writeFile('./db/db.json', stringNotes, (err) => {
-//             err ? console.error('Error in adding note') : console.log('Note successfully added');
-//         });
+//     // test = notes;
 
-//         const response = {
-//             status: 'success',
-//             body: newNote,
-//         };
+//     // var newData = JSON.stringify(myObject);
+//     fs.writeFile('./db/db.json', JSON.stringify({ notes: notes }, null, 3), (err) => {
+//         err ? console.error('Error detected') : console.log('Success');
+//     })
 
-//         console.log(response);
-//         res.status(201).json(response);
+// res.json("Success");
+// })
 
-//     } else {
-//         res.status(500).json('Error in adding note');
-//     }
-// });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 app.listen(PORT, () =>
@@ -119,63 +121,3 @@ app.listen(PORT, () =>
 
 
 
-
-
-
-
-
-
-// // POST request to add new note to the database
-// app.post('/api/notes', (req, res) => {
-//     // Log the request to the terminal
-//     console.info(`${req.method} request method received to add a note`);
-
-//     // Destructuring assignment for the items in req.body
-//     const { title, text } = req.body;
-
-//     if (title && text) {
-//         // Variable for the object we will save for the new note
-//         const newNote = {
-//             title,
-//             text,
-//             id: createID(),
-//         };
-
-//         // Obtain existing notes
-//         fs.readFile('./db/db.json', 'utf8', (err, data) => {
-//             if (err) {
-//                 console.error(err);
-//             } else {
-//                 // Converts string to JSON object
-//                 const parsedNotes = JSON.parse(data);
-
-//                 // Add a new note
-//                 parsedNotes.push(newNote);
-
-//                 // Write updated notes back to the file
-//                 fs.writeFile(
-//                     './db/db.json', 
-//                     JSON.stringify(parsedNotes, null, 4), 
-//                     (writeErr) => {
-//                     if (writeErr) {
-//                         console.error(writeErr);
-//                     } else {
-//                         console.info("Successfully updated notes!")
-//                     }                      
-//                     }
-//                 );
-//             }
-//         });
-
-//         const response = {
-//             status: 'success',
-//             body: newNote,
-//         };
-
-//         console.log(response);
-//         res.status(201).json(response);
-
-//     } else {
-//         res.status(500).json('Error in adding note');
-//     }
-// });
