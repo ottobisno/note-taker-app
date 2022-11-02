@@ -73,46 +73,27 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
+app.delete('/api/notes/:id', (req, res) => {
+    // Log request to the terminal
+    console.info(`${req.method} request received to delete a note`);
 
+    for (let i = 0; i < notes.length; i++) {
+        const currentNote = notes[i];
+        if (currentNote.id === req.params.id) {
+            let index = notes.indexOf(currentNote);
+            notes.splice(index, 1);
 
-
-
-// app.post('/api/notes', (req, res) => {
-//     const {title,text} = req.body;
-
-//     const id = createID();
-
-//     const newNote = {title, text, id};
-
-//     // var data = fs.readFileSync('./db/db.json');
-
-//     // var myObject = JSON.parse(data);
-
-//     notes.push(newNote);
-
-//     // test = notes;
-
-//     // var newData = JSON.stringify(myObject);
-//     fs.writeFile('./db/db.json', JSON.stringify({ notes: notes }, null, 3), (err) => {
-//         err ? console.error('Error detected') : console.log('Success');
-//     })
-
-// res.json("Success");
-// })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            // Write updated notes back to the db
+            fs.writeFile('./db/db.json', JSON.stringify({ notes: notes }, null, 3), (err) => {
+            err ? console.error('Error in deleting note') : console.log('Note successfully deleted');
+            });
+    
+            res.status(200).json();
+            return;
+        } 
+    }
+    res.status(500).json('Note ID not found');
+});
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
