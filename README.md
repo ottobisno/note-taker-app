@@ -11,7 +11,7 @@ To create a note, simply click in the text fields in the right panel for "Note T
 ## Link to Deployed Application (Heroku)
 
 The application can be found deployed via [this link](https://stormy-retreat-84964.herokuapp.com/)<br>
-![A Preview of the application](https://github.com/ottobisno/note-taker-app/blob/main/assets/note-taker-img.jpeg)
+![A Preview of the application](https://github.com/ottobisno/note-taker-app/blob/main/assets/note-taker-img.JPG)
 
 ## Questions
 
