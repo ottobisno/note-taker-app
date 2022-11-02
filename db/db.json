@@ -1,3 +1,29 @@
 {
-   "notes": []
+   "notes": [
+      {
+         "title": "Note 1",
+         "text": "Text for note 1",
+         "id": "l5dcxwl9z1hmix"
+      },
+      {
+         "title": "Note 2",
+         "text": "Text for note 2",
+         "id": "l5dcxwl9z1htcb"
+      },
+      {
+         "title": "Note 3",
+         "text": "Text for note 3",
+         "id": "l5dcxwl9z1i001"
+      },
+      {
+         "title": "Note 4",
+         "text": "Text for note 4",
+         "id": "l5dcxwl9z1i5pl"
+      },
+      {
+         "title": "Note 5",
+         "text": "Text for note 5",
+         "id": "l5dcxwl9z1ifxv"
+      }
+   ]
 }
